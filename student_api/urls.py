@@ -12,6 +12,7 @@ from .views import greet_view
 from rest_framework.permissions import AllowAny
 from django.conf import settings
 from django.conf.urls.static import static
+from students.views import trigger_error
 
 
 schema_view = get_schema_view(openapi.Info(

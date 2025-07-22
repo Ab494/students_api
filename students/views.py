@@ -68,3 +68,5 @@ class AttendanceReportView(APIView):
             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
         data = report.values('status').annotate(count=Count('status'))
         return Response(data)
+
+
