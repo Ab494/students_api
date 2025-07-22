@@ -80,17 +80,18 @@ WSGI_APPLICATION = 'student_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+import os
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'student_db',
-        'USER': 'student_user',
-        'PASSWORD': 'evans6042',
-        'HOST': 'localhost',
-        'PORT': '5432',
-
+        'NAME': os.environ.get("DB_NAME", "students_db"),
+        'USER': os.environ.get("DB_USER", "students_user"),
+        'PASSWORD': os.environ.get("DB_PASSWORD", "super_secure_password"),
+        'HOST': os.environ.get("DB_HOST", "localhost"),
+        'PORT': os.environ.get("DB_PORT", "5432"),
     }
 }
+
 
 
 # Password validation
@@ -128,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -136,6 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
@@ -152,5 +155,12 @@ REST_FRAMEWORK = {
 LOGIN_REDIRECT_URL = '/api/students/'
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
+# Swagger settings
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'LOGIN_URL': None,
+    'LOGOUT_URL': None,
+
+}
 
 

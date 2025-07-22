@@ -2,4 +2,4 @@ _pycache_/
 *.pyc 
 .env
 db.sqlite3
-*.log
+*.log.env
